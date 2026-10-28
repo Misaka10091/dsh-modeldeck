@@ -1,0 +1,4 @@
+{"file": ".trellis/spec/frontend/quality-guidelines.md", "reason": "Frontend quality and review checklist for the plugin UI."}
+{"file": ".trellis/spec/backend/quality-guidelines.md", "reason": "Backend quality and review checklist for the Host half."}
+{"file": ".trellis/spec/guides/index.md", "reason": "Thinking-guide index for review and false-positive checks."}
+{"file": ".trellis/tasks/10-28-modeldeck-planning/research/installed-dsh-contracts.md", "reason": "Verification reference for API usage and event observation."}

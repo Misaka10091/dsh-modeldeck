@@ -1,0 +1,7 @@
+{"file": ".trellis/tasks/10-28-modeldeck-planning/research/installed-dsh-contracts.md", "reason": "Installed DSH model-selection, projection, event, and catalog contracts for the plugin integration."}
+{"file": ".trellis/tasks/10-28-modeldeck-planning/research/plugin-isolation-feasibility.md", "reason": "Verified plugin-only session-scope limits and the disclosed shared-default side effect."}
+{"file": ".trellis/tasks/10-28-modeldeck-planning/design.md", "reason": "Technical architecture, data model, and module boundaries for the implementation."}
+{"file": ".trellis/spec/frontend/component-guidelines.md", "reason": "UI component conventions for the slot-rendered ModelDeck panel."}
+{"file": ".trellis/spec/frontend/state-management.md", "reason": "Client state and projection-subscription patterns."}
+{"file": ".trellis/spec/backend/error-handling.md", "reason": "Error surfacing rules for application and persistence failures."}
+{"file": ".trellis/spec/guides/cross-layer-thinking-guide.md", "reason": "Cross-layer data flow and payload contract discipline."}
