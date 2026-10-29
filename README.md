@@ -23,11 +23,9 @@ dsh --profile test --no-open --port 8123   # 固定端口，localStorage 才跨�
 
 ## 安装到 Desktop（正式使用，由用户自行执行）
 
-```bash
-dsh plugin --profile desktop add "D:/workspace/github/dsh-modeldeck"
-```
+`desktop` profile 由 Electron 应用管理，通常**不接受 CLI 插件命令**。请在应用内通过插件管理（`plugin_manager` → `install_bundle`）安装：目标指向本仓库绝对路径（本地开发），或已发布的 `@misaka10091/dsh-modeldeck`。
 
-然后重启 DeepSeek Harness 桌面应用。桌面渲染层 origin 固定为 `dsh-app://app`，因此 localStorage 会跨重启保留（存储位于 `%APPDATA%\@deepseek-ai\dsh-desktop\Local Storage`）。卸载：`dsh plugin --profile desktop remove @local/dsh-modeldeck`。
+安装后重启 DeepSeek Harness 桌面应用。桌面渲染层 origin 固定为 `dsh-app://app`，localStorage 跨重启保留（存储位于 `%APPDATA%\@deepseek-ai\dsh-desktop\Local Storage`）。
 
 ## 持久化说明
 
