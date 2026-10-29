@@ -147,3 +147,7 @@ vite.config.ts.timestamp-*
 
 # Turbo Repo
 .turbo
+
+# Local scratch and sandbox recovery backups
+.tmp/
+.permission-recovery/

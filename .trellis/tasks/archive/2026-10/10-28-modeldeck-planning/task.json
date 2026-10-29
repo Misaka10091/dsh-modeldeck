@@ -1,0 +1,29 @@
+{
+  "id": "modeldeck-planning",
+  "name": "modeldeck-planning",
+  "title": "DSH ModelDeck requirements planning",
+  "description": "Plan project-isolated model presets, recent history, pinning, and current-session model switching for dsh-modeldeck.",
+  "status": "completed",
+  "dev_type": null,
+  "scope": null,
+  "package": null,
+  "priority": "P2",
+  "creator": "蒋经",
+  "assignee": "蒋经",
+  "createdAt": "2026-10-28",
+  "completedAt": "2026-10-28",
+  "branch": "feat/dsh-modeldeck",
+  "base_branch": "main",
+  "worktree_path": null,
+  "commit": null,
+  "pr_url": null,
+  "subtasks": [],
+  "children": [],
+  "parent": null,
+  "relatedFiles": [],
+  "notes": "",
+  "meta": {
+    "planning_approved": "2026-10-28",
+    "planning_status": "requirements-finalized; implementation not authorized"
+  }
+}

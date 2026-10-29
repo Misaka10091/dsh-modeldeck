@@ -1,0 +1,13 @@
+{
+  "id": "dsh-external/dsh-modeldeck",
+  "version": "0.1.0",
+  "main": "./index.js",
+  "description": "DeepSeek Harness 模型卡组：按项目保存固定模型配置与最近历史，一键切换会话的提供商 / 模型 / 推理等级。",
+  "engines": {
+    "dsh": ">=0.2.1-rc.1"
+  },
+  "contributes": {
+    "tools": [],
+    "skills": []
+  }
+}

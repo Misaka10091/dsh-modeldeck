@@ -1,0 +1,3 @@
+# Reproducible ASAR evidence is generated locally, not committed.
+extracted/
+asar-index.json

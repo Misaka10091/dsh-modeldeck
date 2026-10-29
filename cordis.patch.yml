@@ -1,0 +1,4 @@
+- insert:
+    - id: dsh-modeldeck
+      name: '@misaka10091/dsh-modeldeck'
+      config: {}
