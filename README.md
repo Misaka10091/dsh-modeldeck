@@ -16,16 +16,25 @@ DSH 模型卡组插件（`@local/dsh-modeldeck`）：在会话输入框旁提供
 
 ```bash
 dsh plugin --profile test add "D:/workspace/github/dsh-modeldeck"
-dsh --profile test --no-open --port 0   # 打印带 token 的访问链接
+dsh --profile test --no-open --port 8123   # 固定端口，localStorage 才跨重启保留
 ```
 
 或使用 `plugin_manager` 的 `install_bundle` 安装到目标 profile。
 
-## 已知限制
+## 安装到 Desktop（正式使用，由用户自行执行）
 
-- **持久化使用浏览器 localStorage**（按工作区路径分键，跨刷新/重启保留），而非 PRD 设想的 Host `ctx.storageDomain`。原因：客户端插件没有可写文件的 Host 通道（`dsh-api-workspace-files` 仅提供读取；自定义 Remote 需要 typert 构建产物，纯 JS 插件无法生成）。
-- 相同模型「重复连续选择」会被 DSH 合并，历史不会重复触发；切换走再切回可复现去重置顶。
-- 未做：跨设备同步、导入导出、按任务自动选模型。
+```bash
+dsh plugin --profile desktop add "D:/workspace/github/dsh-modeldeck"
+```
+
+然后重启 DeepSeek Harness 桌面应用。桌面渲染层 origin 固定为 `dsh-app://app`，因此 localStorage 会跨重启保留（存储位于 `%APPDATA%\@deepseek-ai\dsh-desktop\Local Storage`）。卸载：`dsh plugin --profile desktop remove @local/dsh-modeldeck`。
+
+## 持久化说明
+
+- 持久化使用浏览器 localStorage，按工作区路径分键。
+- **Desktop 应用**：渲染 origin 恒为 `dsh-app://app`，跨重启保留。
+- **`dsh web`**：每次启动端口随机，origin 变化导致数据丢失；需固定 `--port`（如 8123）。
+- 清应用数据 / 重装 / 换设备会丢失；跨设备需改为 Host `ctx.storageDomain`（未实现，见下）。
 
 ## 开发
 
