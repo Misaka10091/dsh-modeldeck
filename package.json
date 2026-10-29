@@ -1,28 +1,34 @@
 {
-  "name": "@local/dsh-modeldeck",
+  "name": "@misaka10091/dsh-modeldeck",
   "version": "0.1.0",
-  "private": true,
+  "description": "Model Deck for DeepSeek Harness: quick-apply saved provider/model/reasoning presets with per-project fixed configurations and recent history. | DeepSeek Harness 模型卡组：按项目保存固定模型配置与最近历史，一键切换会话的提供商 / 模型 / 推理等级。",
   "type": "module",
-  "description": "Quick-apply saved provider + model + reasoning presets, with per-project fixed configurations and recent history.",
+  "author": {
+    "name": "Misaka10091",
+    "url": "https://github.com/Misaka10091"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Misaka10091/dsh-modeldeck.git"
+  },
+  "homepage": "https://github.com/Misaka10091/dsh-modeldeck#readme",
+  "bugs": {
+    "url": "https://github.com/Misaka10091/dsh-modeldeck/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "./index.js",
   "exports": {
     ".": "./index.js",
     "./client": "./client.js",
+    "./package.json": "./package.json",
     "./locale/*.json": "./locale/*.json",
     "./icon": "./icon.svg"
   },
-  "files": [
-    "index.js",
-    "client.js",
-    "src/deck-core.js",
-    "cordis.patch.yml",
-    "locale/en.json",
-    "locale/zh.json",
-    "locale/*.json",
-    "icon.svg",
-    "README.md"
-  ],
-  "scripts": {
-    "test": "node --test"
+  "engines": {
+    "node": ">=18",
+    "dsh": ">=0.2.1-rc.1"
   },
   "dsh": {
     "bundle": {
@@ -31,7 +37,52 @@
     "client": {
       "platform": "web",
       "immediately": true,
-      "inject": ["@deepseek-ai/dsh-client-ui-conversation"]
+      "inject": [
+        "@deepseek-ai/dsh-client-locale",
+        "@deepseek-ai/dsh-client-ui-slots",
+        "@deepseek-ai/dsh-client-ui-model-selection",
+        "@deepseek-ai/dsh-client-ui-conversation",
+        "@deepseek-ai/dsh-client-modules"
+      ]
+    },
+    "manifestVersion": 1
+  },
+  "files": [
+    "index.js",
+    "client.js",
+    "src",
+    "cordis.patch.yml",
+    "locale",
+    "icon.svg",
+    "dsh.plugin.json",
+    "README.md",
+    "CHANGELOG.md",
+    "RELEASING.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node --test",
+    "check:syntax": "node --check index.js && node --check client.js && node --check src/deck-core.js",
+    "version": "node -e \"const fs=require('fs');const m=JSON.parse(fs.readFileSync('dsh.plugin.json','utf8'));const v=JSON.parse(fs.readFileSync('package.json','utf8')).version;m.version=v;fs.writeFileSync('dsh.plugin.json',JSON.stringify(m,null,2)+'\\n')\" && git add dsh.plugin.json"
+  },
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "dsh-plugin",
+    "model-deck",
+    "model-presets",
+    "model-switcher",
+    "reasoning-effort",
+    "presets"
+  ],
+  "license": "MIT",
+  "icon": "./icon.svg",
+  "peerDependencies": {
+    "@deepseek-ai/dsh": ">=0.2.1-rc.1"
+  },
+  "peerDependenciesMeta": {
+    "@deepseek-ai/dsh": {
+      "optional": true
     }
   }
 }

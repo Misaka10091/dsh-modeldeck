@@ -106,7 +106,7 @@ const STYLESHEET = `
 `;
 
 window.__ModuleLoader__.load({
-  id: '@local/dsh-modeldeck',
+  id: '@misaka10091/dsh-modeldeck',
   factory(require) {
     const React = require('react');
     const h = React.createElement;
