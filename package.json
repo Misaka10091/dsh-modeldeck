@@ -1,6 +1,6 @@
 {
   "name": "@misaka10091/dsh-modeldeck",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Model Deck for DeepSeek Harness: quick-apply saved provider/model/reasoning presets with per-project fixed configurations and recent history. | DeepSeek Harness 模型卡组：按项目保存固定模型配置与最近历史，一键切换会话的提供商 / 模型 / 推理等级。",
   "type": "module",
   "author": {
