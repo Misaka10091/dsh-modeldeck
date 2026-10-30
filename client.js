@@ -53,11 +53,26 @@ const STYLESHEET = `
 }
 .mdk-ibtn:hover { background: var(--dsw-alias-interactive-bg-hover, rgba(127,127,127,.12)); color: var(--dsw-alias-label-primary, inherit); }
 .mdk-hr { height: 1px; background: var(--dsw-alias-border-l1, rgba(127,127,127,.2)); margin: 10px -4px; }
-.mdk-section { display: flex; align-items: flex-start; gap: 10px; margin-top: 8px; }
+.mdk-section { display: flex; align-items: flex-start; gap: 10px; margin-top: 10px; }
 .mdk-glabel {
-  flex: 0 0 30px; padding-top: 5px; font-size: 11px; letter-spacing: .02em;
+  flex: 0 0 34px; padding-top: 6px; font-size: 11px; letter-spacing: .02em;
   color: var(--dsw-alias-label-tertiary, inherit); white-space: nowrap;
+  display: inline-flex; align-items: center; gap: 4px;
 }
+/* 固定区：强化 —— 主色强调条 + 加粗深色标签 */
+.mdk-section--pinned .mdk-glabel {
+  color: var(--dsw-alias-label-primary, inherit); font-weight: 600; font-size: 12px;
+}
+.mdk-section--pinned .mdk-glabel::before {
+  content: ''; flex: 0 0 auto; width: 3px; height: 12px; border-radius: 2px;
+  background: var(--dsw-alias-state-business-primary, #3b82f6);
+}
+/* 最近区：弱化 —— 虚线分隔 + 淡化标签，读作次级区域 */
+.mdk-section--recent {
+  margin-top: 12px; padding-top: 11px;
+  border-top: 1px dashed var(--dsw-alias-border-l1, rgba(127,127,127,.16));
+}
+.mdk-section--recent .mdk-glabel { opacity: .55; font-weight: 500; }
 .mdk-chips { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; min-width: 0; flex: 1; }
 .mdk-chip {
   height: 26px; padding: 0 10px; border-radius: 999px;
@@ -65,9 +80,41 @@ const STYLESHEET = `
   background: 0 0; color: var(--dsw-alias-label-primary, inherit);
   font: inherit; font-size: 12px; white-space: nowrap; cursor: pointer;
   max-width: 260px; overflow: hidden; text-overflow: ellipsis; vertical-align: middle;
+  transition: background .12s ease, border-color .12s ease, color .12s ease, opacity .12s ease;
 }
 .mdk-chip:hover { background: var(--dsw-alias-interactive-bg-hover, rgba(127,127,127,.12)); }
 .mdk-chip[data-active="true"] { border-color: var(--dsw-alias-state-business-primary, #3b82f6); color: var(--dsw-alias-state-business-primary, #3b82f6); }
+/* 固定项：实心浅底 + 中粗字，视觉更重 */
+.mdk-chip--pinned {
+  height: 28px; padding: 0 12px; font-weight: 500;
+  background: var(--dsw-alias-interactive-bg-hover, rgba(127,127,127,.10));
+  border-color: transparent;
+}
+.mdk-chip--pinned:hover {
+  background: rgba(127,127,127,.18);
+  border-color: var(--dsw-alias-border-l1, rgba(127,127,127,.30));
+}
+.mdk-chip--pinned[data-active="true"] {
+  background: color-mix(in srgb, var(--dsw-alias-state-business-primary, #3b82f6) 14%, transparent);
+  border-color: var(--dsw-alias-state-business-primary, #3b82f6);
+  color: var(--dsw-alias-state-business-primary, #3b82f6);
+}
+/* 历史项：不高亮、尽量淡化存在感（无描边无底色），悬停才轻微提起 */
+.mdk-chip--recent {
+  height: 22px; padding: 0 7px; font-weight: 400;
+  color: var(--dsw-alias-label-tertiary, inherit);
+  border-color: transparent; background: 0 0;
+  opacity: .55;
+}
+.mdk-chip--recent:hover {
+  opacity: 1; color: var(--dsw-alias-label-secondary, inherit);
+  background: var(--dsw-alias-interactive-bg-hover, rgba(127,127,127,.10));
+}
+/* 即使命中当前组合也不高亮：保持和历史项一致的低存在感 */
+.mdk-chip--recent[data-active="true"] {
+  color: var(--dsw-alias-label-tertiary, inherit);
+  border-color: transparent; background: 0 0; opacity: .55;
+}
 .mdk-item { display: inline-flex; align-items: center; gap: 1px; }
 .mdk-item[draggable="true"] { cursor: grab; }
 .mdk-item[draggable="true"]:active { cursor: grabbing; }
@@ -455,7 +502,7 @@ window.__ModuleLoader__.load({
         body = h(React.Fragment, null, flow);
       } else {
         body = h(React.Fragment, null,
-          h('div', { className: 'mdk-section' },
+          h('div', { className: 'mdk-section mdk-section--pinned' },
             h('span', { className: 'mdk-glabel' }, '固定'),
             deck.presets.length
               ? h('div', { className: 'mdk-chips' }, deck.presets.map((p) =>
@@ -472,18 +519,18 @@ window.__ModuleLoader__.load({
                           onKeyDown: (ev) => { if (ev.key === 'Enter') commitRename(); else if (ev.key === 'Escape') cancelRename(); },
                           onBlur: commitRename,
                         })
-                      : h('button', { className: 'mdk-chip', 'data-active': currentKey === keyOf(p) ? 'true' : 'false', title: (p.renamed ? p.name : labelOf(p)) + '\n双击改名', onClick: () => apply(p), onDoubleClick: () => startRename(p) }, p.renamed ? p.name : labelOf(p)),
+                      : h('button', { className: 'mdk-chip mdk-chip--pinned', 'data-active': currentKey === keyOf(p) ? 'true' : 'false', title: (p.renamed ? p.name : labelOf(p)) + '\n双击改名', onClick: () => apply(p), onDoubleClick: () => startRename(p) }, p.renamed ? p.name : labelOf(p)),
                     h('button', { className: 'mdk-pinbtn', 'data-pinned': 'true', 'aria-label': '取消钉住', 'aria-pressed': 'true', title: '取消钉住', onClick: () => unpinOne(p) }, h(IconPin, { filled: true })),
                     h('button', { className: 'mdk-pinbtn', 'aria-label': '重命名', title: '重命名', onClick: () => startRename(p) }, h(IconEdit)),
                     h('button', { className: 'mdk-pinbtn', 'aria-label': '移除', title: '从固定区移除', onClick: () => removeOne(p) }, h(IconX)))))
               : h('span', { className: 'mdk-empty' }, '暂无固定配置'),
             h('button', { className: 'mdk-ibtn', title: '添加固定配置', 'aria-label': '添加固定配置', onClick: () => { setErr(''); setView('add'); setAddGroup(null); } }, '＋')),
-          h('div', { className: 'mdk-section' },
+          h('div', { className: 'mdk-section mdk-section--recent' },
             h('span', { className: 'mdk-glabel' }, '最近'),
             deck.history.length
               ? h('div', { className: 'mdk-chips' }, deck.history.map((e, i) =>
                   h('span', { key: 'h' + i, className: 'mdk-item' },
-                    h('button', { className: 'mdk-chip', 'data-active': currentKey === keyOf(e) ? 'true' : 'false', title: labelOf(e), onClick: () => apply(e) }, labelOf(e)),
+                    h('button', { className: 'mdk-chip mdk-chip--recent', 'data-active': currentKey === keyOf(e) ? 'true' : 'false', title: labelOf(e), onClick: () => apply(e) }, labelOf(e)),
                     h('button', { className: 'mdk-pinbtn', 'data-pinned': 'false', 'aria-label': '钉住', 'aria-pressed': 'false', title: '钉住到固定区', onClick: () => pinEntry(e) }, h(IconPin, { filled: false })),
                     h('button', { className: 'mdk-pinbtn', 'aria-label': '移除', title: '从历史移除', onClick: () => removeHistory(e) }, h(IconX)))))
               : h('span', { className: 'mdk-empty' }, '暂无历史')));
